@@ -1,0 +1,31 @@
+<footer class="bg-light py-4 mt-auto">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h5>🧩 HandIaCoach</h5>
+        <p class="text-muted">
+          Coach IA pour créer des routines visuelles personnalisées 
+          pour l'accompagnement du handicap (TSA, polyhandicap).
+        </p>
+      </div>
+      <div class="col-md-3">
+        <h6>Navigation</h6>
+        <ul class="list-unstyled">
+          <li><%= link_to "Accueil", root_path, class: "text-muted" %></li>
+          <li><%= link_to "Tarifs", pricing_subscriptions_path, class: "text-muted" %></li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <h6>Ressources</h6>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-muted">Guide d'utilisation</a></li>
+          <li><a href="#" class="text-muted">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr>
+    <div class="text-center text-muted">
+      <small>&copy; <%= Date.current.year %> HandIaCoach - MVP Lean Startup</small>
+    </div>
+  </div>
+</footer>

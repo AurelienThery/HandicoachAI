@@ -1,0 +1,87 @@
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Mes Routines</h1>
+    <%= link_to "Nouvelle routine", new_routine_path, class: "btn btn-primary" %>
+  </div>
+
+  <!-- Tabs for own/shared routines -->
+  <ul class="nav nav-tabs mb-4" id="routinesTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="my-routines-tab" data-bs-toggle="tab" data-bs-target="#my-routines" type="button" role="tab">
+        📋 Mes routines (<%= @own_routines.size %>)
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="shared-routines-tab" data-bs-toggle="tab" data-bs-target="#shared-routines" type="button" role="tab">
+        🔗 Partagées avec moi (<%= @shared_routines.size %>)
+      </button>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="routinesTabContent">
+    <!-- My Routines -->
+    <div class="tab-pane fade show active" id="my-routines" role="tabpanel">
+      <% if @own_routines.any? %>
+        <div class="row g-4">
+          <% @own_routines.each do |routine| %>
+            <div class="col-md-6 col-lg-4">
+              <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h5 class="card-title"><%= routine.title %></h5>
+                    <span class="badge <%= routine.visibility == 'shared' ? 'bg-success' : 'bg-secondary' %>">
+                      <%= routine.visibility == 'shared' ? '🔗 Partagée' : '🔒 Privée' %>
+                    </span>
+                  </div>
+                  <p class="card-text text-muted"><%= truncate(routine.description, length: 80) %></p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted"><%= routine.steps_array.size %> étape(s)</small>
+                    <%= link_to "Voir", routine_path(routine), class: "btn btn-outline-primary btn-sm" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="text-center py-5">
+          <div class="display-4 mb-3">📋</div>
+          <h5>Aucune routine créée</h5>
+          <p class="text-muted">Commencez par créer votre première routine.</p>
+          <%= link_to "Créer une routine", new_routine_path, class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Shared Routines -->
+    <div class="tab-pane fade" id="shared-routines" role="tabpanel">
+      <% if @shared_routines.any? %>
+        <div class="row g-4">
+          <% @shared_routines.each do |routine| %>
+            <div class="col-md-6 col-lg-4">
+              <div class="card h-100 shadow-sm border-success">
+                <div class="card-body">
+                  <h5 class="card-title"><%= routine.title %></h5>
+                  <p class="card-text text-muted"><%= truncate(routine.description, length: 80) %></p>
+                  <p class="small text-success">
+                    Partagée par <%= routine.user.name || routine.user.email.split('@').first %>
+                  </p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted"><%= routine.steps_array.size %> étape(s)</small>
+                    <%= link_to "Voir", routine_path(routine), class: "btn btn-outline-success btn-sm" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="text-center py-5">
+          <div class="display-4 mb-3">🔗</div>
+          <h5>Aucune routine partagée</h5>
+          <p class="text-muted">Les routines partagées par d'autres utilisateurs apparaîtront ici.</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

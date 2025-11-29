@@ -1,0 +1,22 @@
+<div class="container py-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><%= link_to "Routines", routines_path %></li>
+      <li class="breadcrumb-item"><%= link_to @routine.title, routine_path(@routine) %></li>
+      <li class="breadcrumb-item active">Modifier</li>
+    </ol>
+  </nav>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h2 class="mb-0">📝 Modifier la routine</h2>
+        </div>
+        <div class="card-body">
+          <%= render "form", routine: @routine %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

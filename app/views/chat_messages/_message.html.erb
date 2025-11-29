@@ -1,0 +1,20 @@
+<div class="d-flex mb-3 <%= message.role == 'user' ? 'justify-content-end' : 'justify-content-start' %>">
+  <div class="<%= message.role == 'user' ? 'bg-primary text-white' : 'bg-light' %> rounded-3 p-3" 
+       style="max-width: 80%;">
+    <div class="d-flex align-items-center mb-1">
+      <% if message.role == 'user' %>
+        <strong class="me-2">👤 Vous</strong>
+      <% elsif message.role == 'assistant' %>
+        <strong class="me-2 text-primary">🤖 HandIaCoach</strong>
+      <% else %>
+        <strong class="me-2">📢 Système</strong>
+      <% end %>
+      <small class="<%= message.role == 'user' ? 'text-white-50' : 'text-muted' %>">
+        <%= message.created_at.strftime("%H:%M") %>
+      </small>
+    </div>
+    <div class="message-content">
+      <%= simple_format(message.content) %>
+    </div>
+  </div>
+</div>

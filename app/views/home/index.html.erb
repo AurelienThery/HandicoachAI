@@ -1,0 +1,114 @@
+<div class="bg-primary text-white py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <h1 class="display-4 fw-bold mb-4">
+          🧩 HandIaCoach
+        </h1>
+        <p class="lead mb-4">
+          Votre assistant IA pour créer des <strong>routines visuelles personnalisées</strong> 
+          adaptées aux personnes en situation de handicap (TSA, polyhandicap).
+        </p>
+        <p class="mb-4">
+          ✅ Collaboration famille ↔ professionnels<br>
+          ✅ Chat IA en temps réel<br>
+          ✅ Routines structurées et adaptées
+        </p>
+        <div class="d-flex gap-3">
+          <%= link_to "Commencer gratuitement", new_user_registration_path, class: "btn btn-light btn-lg" %>
+          <%= link_to "Voir les tarifs", pricing_subscriptions_path, class: "btn btn-outline-light btn-lg" %>
+        </div>
+      </div>
+      <div class="col-lg-6 text-center mt-4 mt-lg-0">
+        <div class="bg-white rounded-4 p-4 shadow">
+          <div class="text-start text-dark">
+            <div class="mb-3 p-3 bg-light rounded">
+              <strong class="text-primary">👤 Vous:</strong> Je voudrais créer une routine du matin pour mon enfant TSA
+            </div>
+            <div class="p-3 bg-primary bg-opacity-10 rounded">
+              <strong class="text-primary">🤖 HandIaCoach:</strong> Bien sûr ! Pour personnaliser cette routine, j'aurais besoin de quelques informations...
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-5">Comment ça fonctionne ?</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body text-center">
+            <div class="display-4 mb-3">💬</div>
+            <h5 class="card-title">1. Discutez avec l'IA</h5>
+            <p class="card-text text-muted">
+              Décrivez vos besoins en langage naturel. L'IA comprend le contexte et propose des solutions adaptées.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body text-center">
+            <div class="display-4 mb-3">📋</div>
+            <h5 class="card-title">2. Créez vos routines</h5>
+            <p class="card-text text-muted">
+              Générez des routines visuelles étape par étape, personnalisées selon le profil et les besoins.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body text-center">
+            <div class="display-4 mb-3">🤝</div>
+            <h5 class="card-title">3. Partagez et collaborez</h5>
+            <p class="card-text text-muted">
+              Partagez les routines entre famille et professionnels pour une cohérence dans l'accompagnement.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bg-light py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <h2 class="mb-4">Pour qui ?</h2>
+        <div class="d-flex align-items-start mb-3">
+          <span class="badge bg-primary rounded-pill me-3 p-2">👨‍👩‍👧</span>
+          <div>
+            <h5>Familles</h5>
+            <p class="text-muted mb-0">Parents, aidants familiaux cherchant des outils pour structurer le quotidien.</p>
+          </div>
+        </div>
+        <div class="d-flex align-items-start">
+          <span class="badge bg-success rounded-pill me-3 p-2">👩‍⚕️</span>
+          <div>
+            <h5>Professionnels</h5>
+            <p class="text-muted mb-0">Éducateurs, psychologues, orthophonistes accompagnant les personnes handicapées.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card border-0 shadow">
+          <div class="card-body p-4">
+            <h4 class="mb-4">Essayez gratuitement</h4>
+            <ul class="list-unstyled mb-4">
+              <li class="mb-2">✅ Créez jusqu'à 3 routines</li>
+              <li class="mb-2">✅ Accès au chat IA</li>
+              <li class="mb-2">✅ Partage avec 1 collaborateur</li>
+            </ul>
+            <%= link_to "Créer mon compte", new_user_registration_path, class: "btn btn-primary w-100" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

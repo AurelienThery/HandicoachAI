@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>HandIaCoach - Coach IA pour l'autonomie</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="HandIaCoach - Assistant IA pour créer des routines visuelles personnalisées pour l'accompagnement du handicap">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= action_cable_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="d-flex flex-column min-vh-100">
+    <%= render "shared/navbar" %>
+
+    <main class="flex-grow-1">
+      <% if notice.present? %>
+        <div class="container mt-3">
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%= notice %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+          </div>
+        </div>
+      <% end %>
+
+      <% if alert.present? %>
+        <div class="container mt-3">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%= alert %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+          </div>
+        </div>
+      <% end %>
+
+      <%= yield %>
+    </main>
+
+    <%= render "shared/footer" %>
+  </body>
+</html>

@@ -1,0 +1,18 @@
+<%= turbo_stream.append "messages" do %>
+  <%= render "chat_messages/message", message: @message %>
+<% end %>
+
+<%= turbo_stream.replace "message_form" do %>
+  <%= form_with model: ChatMessage.new, url: (@routine ? routine_chat_messages_path(@routine) : chat_messages_path), 
+      id: "message_form", class: "d-flex gap-2" do |f| %>
+    <%= f.text_field :content, class: "form-control", 
+        placeholder: "Écrivez votre message...", 
+        autocomplete: "off",
+        id: "message_content" %>
+    <%= f.submit "Envoyer", class: "btn btn-primary" %>
+  <% end %>
+<% end %>
+
+<script>
+  document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+</script>

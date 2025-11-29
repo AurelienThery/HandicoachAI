@@ -1,0 +1,36 @@
+<%= form_with model: routine, class: "needs-validation" do |f| %>
+  <% if routine.errors.any? %>
+    <div class="alert alert-danger">
+      <h5><%= pluralize(routine.errors.count, "erreur") %> empêche(nt) la sauvegarde :</h5>
+      <ul class="mb-0">
+        <% routine.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= f.label :title, "Titre de la routine", class: "form-label" %>
+    <%= f.text_field :title, class: "form-control", required: true, 
+        placeholder: "Ex: Routine du matin" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :description, "Description", class: "form-label" %>
+    <%= f.text_area :description, class: "form-control", rows: 3,
+        placeholder: "Décrivez le but de cette routine..." %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :visibility, "Visibilité", class: "form-label" %>
+    <%= f.select :visibility, [["🔒 Privée", "private"], ["🔗 Partagée", "shared"]], 
+        {}, class: "form-select" %>
+    <div class="form-text">Une routine partagée peut être visible par les utilisateurs que vous invitez.</div>
+  </div>
+
+  <div class="d-flex gap-2">
+    <%= f.submit routine.persisted? ? "Mettre à jour" : "Créer la routine", class: "btn btn-primary" %>
+    <%= link_to "Annuler", routines_path, class: "btn btn-outline-secondary" %>
+  </div>
+<% end %>

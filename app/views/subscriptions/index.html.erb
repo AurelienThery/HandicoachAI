@@ -1,0 +1,78 @@
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <h1 class="mb-4">Mon Abonnement</h1>
+
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <h4>
+                Plan <%= current_user.subscription_plan.capitalize %>
+                <% if current_user.pro_plan? %>
+                  <span class="badge bg-warning text-dark">Pro</span>
+                <% end %>
+              </h4>
+              <% if current_user.pro_plan? && current_user.subscription_expires_at %>
+                <p class="text-muted mb-0">
+                  Expire le <%= current_user.subscription_expires_at.strftime("%d/%m/%Y") %>
+                </p>
+              <% elsif current_user.basic_plan? %>
+                <p class="text-muted mb-0">Gratuit - fonctionnalités limitées</p>
+              <% end %>
+            </div>
+            <% if current_user.basic_plan? %>
+              <%= link_to "Passer au Pro", pricing_subscriptions_path, class: "btn btn-warning" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <h4 class="mb-3">Vos avantages actuels</h4>
+      <div class="row g-3">
+        <% if current_user.basic_plan? %>
+          <div class="col-md-6">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">✅ Inclus</h5>
+                <ul class="list-unstyled mb-0">
+                  <li>📋 3 routines maximum</li>
+                  <li>💬 Chat IA (réponses limitées)</li>
+                  <li>🔗 Partage avec 1 personne</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card h-100 border-warning">
+              <div class="card-body">
+                <h5 class="card-title">🌟 Passez au Pro</h5>
+                <ul class="list-unstyled mb-0">
+                  <li>📋 Routines illimitées</li>
+                  <li>💬 Chat IA illimité</li>
+                  <li>🔗 Partage illimité</li>
+                  <li>📊 Statistiques avancées</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        <% else %>
+          <div class="col-12">
+            <div class="card border-success">
+              <div class="card-body">
+                <h5 class="card-title text-success">✅ Votre plan Pro</h5>
+                <ul class="list-unstyled mb-0">
+                  <li>📋 Routines illimitées</li>
+                  <li>💬 Chat IA illimité</li>
+                  <li>🔗 Partage illimité</li>
+                  <li>📊 Statistiques avancées</li>
+                  <li>🎯 Support prioritaire</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
