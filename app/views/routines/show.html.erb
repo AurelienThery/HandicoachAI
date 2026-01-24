@@ -1,0 +1,116 @@
+<div class="container py-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><%= link_to "Routines", routines_path %></li>
+      <li class="breadcrumb-item active"><%= @routine.title %></li>
+    </ol>
+  </nav>
+
+  <div class="row">
+    <!-- Routine Details -->
+    <div class="col-lg-7">
+      <div class="card shadow-sm mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h2 class="mb-0"><%= @routine.title %></h2>
+          <span class="badge <%= @routine.visibility == 'shared' ? 'bg-success' : 'bg-secondary' %>">
+            <%= @routine.visibility == 'shared' ? '🔗 Partagée' : '🔒 Privée' %>
+          </span>
+        </div>
+        <div class="card-body">
+          <% if @routine.description.present? %>
+            <p class="card-text"><%= @routine.description %></p>
+          <% end %>
+
+          <h5 class="mt-4 mb-3">📋 Étapes de la routine</h5>
+          <% if @routine.steps_array.any? %>
+            <ol class="list-group list-group-numbered">
+              <% @routine.steps_array.each do |step| %>
+                <li class="list-group-item"><%= step %></li>
+              <% end %>
+            </ol>
+          <% else %>
+            <p class="text-muted">Aucune étape définie. Utilisez le chat pour générer des étapes.</p>
+          <% end %>
+        </div>
+        <% if @routine.user_id == current_user.id %>
+          <div class="card-footer">
+            <div class="d-flex gap-2">
+              <%= link_to "Modifier", edit_routine_path(@routine), class: "btn btn-outline-primary" %>
+              <%= button_to "Supprimer", routine_path(@routine), method: :delete, 
+                  class: "btn btn-outline-danger", 
+                  data: { turbo_confirm: "Êtes-vous sûr de vouloir supprimer cette routine ?" } %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Sharing Section -->
+      <% if @routine.user_id == current_user.id %>
+        <div class="card shadow-sm mb-4">
+          <div class="card-header">
+            <h5 class="mb-0">🔗 Partage</h5>
+          </div>
+          <div class="card-body">
+            <%= form_with url: share_routine_path(@routine), method: :post, class: "row g-3" do |f| %>
+              <div class="col-auto flex-grow-1">
+                <%= f.email_field :email, class: "form-control", placeholder: "Email de l'utilisateur" %>
+              </div>
+              <div class="col-auto">
+                <%= f.submit "Partager", class: "btn btn-success" %>
+              </div>
+            <% end %>
+
+            <% if @routine.shared_with_ids&.any? %>
+              <hr>
+              <h6>Partagée avec :</h6>
+              <ul class="list-group">
+                <% @routine.shared_with_ids.each do |user_id| %>
+                  <% shared_user = User.find_by(id: user_id) %>
+                  <% if shared_user %>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <%= shared_user.name || shared_user.email %>
+                      <%= button_to "Retirer", unshare_routine_path(@routine, user_id: user_id), 
+                          method: :delete, class: "btn btn-sm btn-outline-danger" %>
+                    </li>
+                  <% end %>
+                <% end %>
+              </ul>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Chat Panel -->
+    <div class="col-lg-5">
+      <div class="card shadow-sm" style="height: 600px;">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">💬 Chat IA - <%= @routine.title %></h5>
+        </div>
+        <div class="card-body overflow-auto" style="height: 450px;" id="messages" 
+             data-controller="chat" data-chat-routine-id-value="<%= @routine.id %>">
+          <%= turbo_stream_from "chat_#{@routine.id}" %>
+          
+          <% @chat_messages.each do |message| %>
+            <%= render "chat_messages/message", message: message %>
+          <% end %>
+          
+          <% if @chat_messages.empty? %>
+            <div class="text-center text-muted py-4">
+              <p>💡 Demandez à l'IA de vous aider avec cette routine !</p>
+            </div>
+          <% end %>
+        </div>
+        <div class="card-footer">
+          <%= form_with model: ChatMessage.new, url: routine_chat_messages_path(@routine), 
+              id: "message_form", class: "d-flex gap-2", data: { turbo_frame: "_top" } do |f| %>
+            <%= f.text_field :content, class: "form-control", 
+                placeholder: "Posez une question sur cette routine...", 
+                autocomplete: "off" %>
+            <%= f.submit "Envoyer", class: "btn btn-primary" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

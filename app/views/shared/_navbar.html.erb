@@ -1,0 +1,55 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="<%= root_path %>">
+      🧩 HandIaCoach
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "Tableau de bord", dashboard_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Mes Routines", routines_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Chat IA", chat_messages_path, class: "nav-link" %>
+          </li>
+        <% end %>
+        <li class="nav-item">
+          <%= link_to "Tarifs", pricing_subscriptions_path, class: "nav-link" %>
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+        <% if user_signed_in? %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              👤 <%= current_user.name || current_user.email.split('@').first %>
+              <% if current_user.pro_plan? %>
+                <span class="badge bg-warning text-dark">Pro</span>
+              <% end %>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li><span class="dropdown-item-text text-muted small"><%= current_user.role.capitalize %></span></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><%= link_to "Mon Abonnement", subscriptions_path, class: "dropdown-item" %></li>
+              <li><%= link_to "Modifier mon profil", edit_user_registration_path, class: "dropdown-item" %></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><%= button_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "dropdown-item" %></li>
+            </ul>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Connexion", new_user_session_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Inscription", new_user_registration_path, class: "btn btn-light ms-2" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

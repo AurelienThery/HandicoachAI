@@ -1,0 +1,89 @@
+<div class="bg-primary text-white py-5">
+  <div class="container text-center">
+    <h1 class="display-5 fw-bold">Tarifs HandIaCoach</h1>
+    <p class="lead">Choisissez le plan adapté à vos besoins</p>
+  </div>
+</div>
+
+<div class="container py-5">
+  <div class="row justify-content-center g-4">
+    <!-- Basic Plan -->
+    <div class="col-md-5">
+      <div class="card h-100 shadow-sm">
+        <div class="card-header text-center py-4">
+          <h3 class="mb-0">Basic</h3>
+          <div class="display-4 fw-bold my-3">Gratuit</div>
+          <p class="text-muted mb-0">Pour découvrir HandIaCoach</p>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled">
+            <li class="mb-3">✅ Jusqu'à 3 routines</li>
+            <li class="mb-3">✅ Accès au chat IA</li>
+            <li class="mb-3">✅ Partage avec 1 collaborateur</li>
+            <li class="mb-3">✅ Modèles de routines basiques</li>
+            <li class="mb-3 text-muted">❌ Routines illimitées</li>
+            <li class="mb-3 text-muted">❌ Statistiques avancées</li>
+            <li class="mb-3 text-muted">❌ Support prioritaire</li>
+          </ul>
+        </div>
+        <div class="card-footer bg-transparent border-0 pb-4">
+          <% if user_signed_in? && current_user.basic_plan? %>
+            <button class="btn btn-outline-secondary w-100" disabled>Plan actuel</button>
+          <% else %>
+            <%= link_to "Commencer gratuitement", new_user_registration_path, class: "btn btn-outline-primary w-100" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pro Plan -->
+    <div class="col-md-5">
+      <div class="card h-100 shadow border-warning">
+        <div class="card-header text-center py-4 bg-warning text-dark">
+          <span class="badge bg-dark mb-2">Recommandé</span>
+          <h3 class="mb-0">Pro</h3>
+          <div class="display-4 fw-bold my-3">20€<small class="fs-5">/mois</small></div>
+          <p class="mb-0">Pour les familles et professionnels</p>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled">
+            <li class="mb-3">✅ <strong>Routines illimitées</strong></li>
+            <li class="mb-3">✅ <strong>Chat IA illimité</strong></li>
+            <li class="mb-3">✅ <strong>Partage illimité</strong></li>
+            <li class="mb-3">✅ Tous les modèles de routines</li>
+            <li class="mb-3">✅ Statistiques et suivi</li>
+            <li class="mb-3">✅ Export PDF des routines</li>
+            <li class="mb-3">✅ Support prioritaire</li>
+          </ul>
+        </div>
+        <div class="card-footer bg-transparent border-0 pb-4">
+          <% if user_signed_in? %>
+            <% if current_user.pro_plan? %>
+              <button class="btn btn-success w-100" disabled>✓ Plan actuel</button>
+            <% else %>
+              <%= button_to "Passer au Pro", upgrade_subscriptions_path(plan: "pro"), 
+                  method: :post, class: "btn btn-warning w-100" %>
+            <% end %>
+          <% else %>
+            <%= link_to "Essayer Pro", new_user_registration_path, class: "btn btn-warning w-100" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mt-5">
+    <div class="col-lg-8">
+      <div class="card bg-light border-0">
+        <div class="card-body text-center">
+          <h4>🏢 Offre Professionnels / Établissements</h4>
+          <p class="text-muted">
+            Vous êtes un établissement médico-social, une école, ou une association ?
+            Contactez-nous pour une offre sur mesure avec des fonctionnalités de gestion d'équipe.
+          </p>
+          <a href="mailto:contact@handiacoach.fr" class="btn btn-outline-primary">Nous contacter</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

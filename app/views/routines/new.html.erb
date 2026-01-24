@@ -1,0 +1,29 @@
+<div class="container py-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><%= link_to "Routines", routines_path %></li>
+      <li class="breadcrumb-item active">Nouvelle routine</li>
+    </ol>
+  </nav>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h2 class="mb-0">📋 Créer une nouvelle routine</h2>
+        </div>
+        <div class="card-body">
+          <%= render "form", routine: @routine %>
+        </div>
+      </div>
+
+      <div class="alert alert-info mt-4">
+        <h5>💡 Conseil</h5>
+        <p class="mb-0">
+          Après avoir créé votre routine, vous pourrez utiliser le chat IA pour générer 
+          automatiquement des étapes adaptées !
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
